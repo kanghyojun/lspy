@@ -2,8 +2,9 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-__all__ = 'only_names',
+import stat
 
+__all__ = 'only_names', 'long_repr',
 
 def only_names(informs):
     """Returns name of files or directories
@@ -22,4 +23,15 @@ def long_repr(informs):
     :return: a list contains long information of files or directories
     :rtype: list
     """
-    pass
+    result = []
+    for info in informs:
+        represent = '{permission} {uname} {gname} {size} {time} {name}'.format(
+            permission=stat.filemode(info.mode),
+            uname=info.owner['uname'],
+            gname=info.owner['gname'],
+            size=info.size,
+            time='{d.month} {d.day} {d:%H}:{d:%M}'.format(d=info.created_at),
+            name=info.name
+        )
+        result.append(represent)
+    return result
