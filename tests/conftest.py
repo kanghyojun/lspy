@@ -15,5 +15,10 @@ def f_tree_path():
 
 
 @fixture
+def f_filter_path():
+    return str(Path('./tests/assets/filter'))
+
+
+@fixture
 def f_infos(f_tree_path):
     return listing_informs(f_tree_path)
