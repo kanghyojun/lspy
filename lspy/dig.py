@@ -15,7 +15,7 @@ __all__ = 'get_fileinfo', 'Inform',
 
 #: ``namedtuple`` that contains information of file or directory
 Inform = namedtuple('namedtuple', ['permission', 'owner', 'size',
-                                   'is_dir', 'modified_at', 'accesed_at',
+                                   'is_dir', 'modified_at', 'accessed_at',
                                    'created_at', 'mode', 'name'])
 
 def get_fileinfo(filename):
@@ -44,7 +44,7 @@ def get_fileinfo(filename):
         is_dir=stat.S_ISDIR(status.st_mode),
         created_at=datetime.fromtimestamp(status.st_ctime),
         modified_at=datetime.fromtimestamp(status.st_mtime),
-        accesed_at=datetime.fromtimestamp(status.st_mtime),
+        accessed_at=datetime.fromtimestamp(status.st_mtime),
     )
 
 
