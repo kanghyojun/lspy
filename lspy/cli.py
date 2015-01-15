@@ -9,6 +9,7 @@ import click
 
 from .dig import listing_informs
 from .represent import find_represent
+from .filter import find_filters
 
 
 def apply_funcs(funcs, data):
@@ -17,14 +18,15 @@ def apply_funcs(funcs, data):
 
 @click.command()
 @click.argument('path', default='.')
-@click.option('--all', 'all_', default=False,
+@click.option('--all', 'all_', default=False, is_flag=True,
               help='Include directory entries whose names begin'
                    'with a dot (.).')
-@click.option('--long', 'long_', default=False,
+@click.option('--long', 'long_', default=False, is_flag=True,
               help='List in long format.')
 def cli(path, all_, long_):
     infos = listing_informs(path)
     funcs = chain(
+        find_filters(all_=all_),
         find_represent(long_=long_)
     )
     for f in apply_funcs(funcs, infos):
