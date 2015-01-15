@@ -40,7 +40,7 @@ def long_repr(informs):
             uname=info.owner['uname'],
             gname=info.owner['gname'],
             size=info.size,
-            time='{d.month} {d.day} {d:%H}:{d:%M}'.format(d=info.created_at),
+            time='{d.month} {d.day} {d:%H}:{d:%M}'.format(d=info.changed_at),
             name=info.name
         )
         result.append(represent)

@@ -10,7 +10,7 @@ from lspy.dig import get_fileinfo, Inform, listing_informs
 def test_has_key_get_fileinfo(f_777_filename):
     keys = [
         'permission', 'owner', 'size', 'is_dir', 'modified_at', 'accessed_at',
-        'created_at', 'mode', 'name'
+        'changed_at', 'mode', 'name'
     ]
     info = get_fileinfo(f_777_filename)
     for key in keys:
@@ -40,7 +40,7 @@ def test_get_fileinfo_right_value(f_777_filename):
     assert not info.is_dir
     assert atime == info.accessed_at
     assert mtime == info.modified_at
-    assert ctime == info.created_at
+    assert ctime == info.changed_at
 
 
 def test_listing_informs(f_tree_path):
@@ -58,4 +58,4 @@ def test_listing_informs(f_tree_path):
         assert expected.is_dir == result.is_dir
         assert expected.modified_at == result.modified_at
         assert expected.accessed_at == result.accessed_at
-        assert expected.created_at == result.created_at
+        assert expected.changed_at == result.changed_at
