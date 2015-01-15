@@ -4,7 +4,17 @@
 """
 import stat
 
-__all__ = 'only_names', 'long_repr',
+__all__ = 'only_names', 'long_repr', 'find_represent',
+
+
+def find_represent(long_=False):
+    funcs = []
+    if long_:
+        funcs.append(long_repr)
+    else:
+        funcs.append(only_names)
+    return funcs
+
 
 def only_names(informs):
     """Returns name of files or directories

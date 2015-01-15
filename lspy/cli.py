@@ -2,20 +2,30 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
+from functools import reduce
+from itertools import chain
+
 import click
 
 from .dig import listing_informs
-from .represent import only_names
-
-@click.group()
-def cli():
-    pass
+from .represent import find_represent
 
 
-@cli.command()
+def apply_funcs(funcs, data):
+    return reduce(lambda x, y: y(x), funcs, data)
+
+
+@click.command()
 @click.argument('path', default='.')
-@click.option('--a', default=False, type=bool)
-def find(a, path):
+@click.option('--all', 'all_', default=False,
+              help='Include directory entries whose names begin'
+                   'with a dot (.).')
+@click.option('--long', 'long_', default=False,
+              help='List in long format.')
+def cli(path, all_, long_):
     infos = listing_informs(path)
-    for name in only_names(infos):
-        print(name)
+    funcs = chain(
+        find_represent(long_=long_)
+    )
+    for f in apply_funcs(funcs, infos):
+        click.echo(f)
