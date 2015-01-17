@@ -11,6 +11,7 @@ from .dig import listing_informs
 from .represent import find_represent
 from .filter import find_filters
 
+__all__ = 'cli', 'apply_funcs',
 
 def apply_funcs(funcs, data):
     return reduce(lambda x, y: y(x), funcs, data)
@@ -26,6 +27,7 @@ def apply_funcs(funcs, data):
 def cli(path, all_, long_):
     infos = listing_informs(path)
     funcs = chain(
+        find_sort(),
         find_filters(all_=all_),
         find_represent(long_=long_)
     )
