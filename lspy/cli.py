@@ -10,6 +10,7 @@ import click
 from .dig import listing_informs
 from .represent import find_represent
 from .filter import find_filters
+from .sort import find_sort
 
 __all__ = 'cli', 'apply_funcs',
 
