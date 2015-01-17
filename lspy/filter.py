@@ -4,7 +4,6 @@
 """
 __all__ = 'hide_dot', 'find_filters',
 
-
 def find_filters(all_=False):
     funcs = []
     if not all_:
