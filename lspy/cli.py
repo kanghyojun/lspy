@@ -25,10 +25,12 @@ def apply_funcs(funcs, data):
                    'with a dot (.).')
 @click.option('--long', 'long_', default=False, is_flag=True,
               help='List in long format.')
-def cli(path, all_, long_):
+@click.option('--time', 'time_', default=False, is_flag=True,
+              help='sort by modification time.')
+def cli(path, all_, long_, time_):
     infos = listing_informs(path)
     funcs = chain(
-        find_sort(),
+        find_sort(time_=time_),
         find_filters(all_=all_),
         find_represent(long_=long_)
     )
