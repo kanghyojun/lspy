@@ -4,6 +4,10 @@ from pytest import fixture
 
 from lspy.dig import listing_informs
 
+def pytest_addoption(parser):
+    parser.addoption('--ci', action='store_true', help='ci')
+
+
 @fixture
 def f_777_filename():
     return str(Path('./tests/assets/777_file'))

@@ -10,4 +10,4 @@ dependencies:
 
 test:
   override:
-    - py.test tests
+    - py.test --ci tests

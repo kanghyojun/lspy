@@ -7,7 +7,7 @@ import stat
 __all__ = 'only_names', 'long_repr', 'find_represent', 'size_represent',
 
 
-def find_represent(long_=False, changed=False, accessed=False, human=True):
+def find_represent(long_=False, changed=False, accessed=False, human=False):
     funcs = []
     if long_:
         if changed:

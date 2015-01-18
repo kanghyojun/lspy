@@ -31,6 +31,7 @@ def test_raise_notfound():
         info = get_fileinfo('foobaz')
 
 
+@pytest.mark.skipif(pytest.config.getvalue('ci'), reason='--ci set')
 def test_get_fileinfo_right_value(f_777_filename):
     status = os.stat(f_777_filename)
     atime = datetime.fromtimestamp(status.st_atime)
