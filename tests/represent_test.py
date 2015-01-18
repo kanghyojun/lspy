@@ -1,11 +1,11 @@
 from datetime import timedelta
 
-from pytest import mark
+from pytest import mark, config
 
 from lspy.dig import Inform
 from lspy.represent import only_names, long_repr, find_represent, size_represent
 
-ci_skip = mark.skipif(pytest.config.getvalue('ci'), reason='--ci set')
+ci_skip = mark.skipif(config.getvalue('ci'), reason='--ci set')
 
 def test_only_names(f_infos):
     assert ['a', 'foo'] == only_names(f_infos)
