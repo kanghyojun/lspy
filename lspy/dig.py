@@ -31,7 +31,7 @@ def get_fileinfo(filename):
             'No such file or directory: {}'.format(filename))
     status = os.stat(filename)
     return Inform(
-        name=path.name,
+        name=path.name or filename,
         mode=status.st_mode,
         permission=stat.S_IMODE(status.st_mode),
         owner={
@@ -59,7 +59,7 @@ def listing_informs(path):
     if not path.exists():
         raise FileNotFoundError(
             'No such file or directory: {}'.format(path))
-    result = []
+    result = [get_fileinfo('.'), get_fileinfo('..')]
     for root, dirs, files in os.walk(str(path)):
         root_path = Path(root)
         for dir_ in dirs:

@@ -21,4 +21,4 @@ def f_filter_path():
 
 @fixture
 def f_infos(f_tree_path):
-    return listing_informs(f_tree_path)
+    return listing_informs(f_tree_path)[2:]

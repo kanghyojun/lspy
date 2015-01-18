@@ -44,7 +44,7 @@ def test_get_fileinfo_right_value(f_777_filename):
 
 
 def test_listing_informs(f_tree_path):
-    list_infos = listing_informs(f_tree_path)
+    list_infos = listing_informs(f_tree_path)[2:]
     root = Path(f_tree_path)
     expected_info = [
         get_fileinfo(str(root / 'a')),
