@@ -21,19 +21,19 @@ def apply_funcs(funcs, data):
 @click.command()
 @click.argument('path', default='.')
 @click.option('--all', 'all_', default=False, is_flag=True,
-              help='Include directory entries whose names begin'
+              help='Include directory entries whose names begin '
                    'with a dot (.).')
 @click.option('--long', 'long_', default=False, is_flag=True,
               help='List in long format.')
 @click.option('--time', 'time_', default=False, is_flag=True,
               help='sort by modification time.')
 @click.option('--changed', default=False, is_flag=True,
-              help='with --long --time: sort by, and show, ctime'
-                   'with --long: show ctime and  sort  by  name'
+              help='with --long --time: sort by, and show, ctime '
+                   'with --long: show ctime and  sort  by  name '
                    'otherwise: sort by ctime')
 @click.option('--accessed', default=False, is_flag=True,
-              help='with --long --time: sort by, and show, atime'
-                   'with --long: show atime and  sort  by  name'
+              help='with --long --time: sort by, and show, atime '
+                   'with --long: show atime and  sort  by  name '
                    'otherwise: sort by atime')
 @click.option('--reverse', default=False, is_flag=True,
               help='reverse order while sorting')
