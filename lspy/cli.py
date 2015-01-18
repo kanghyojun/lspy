@@ -37,11 +37,13 @@ def apply_funcs(funcs, data):
                    'otherwise: sort by atime')
 @click.option('--reverse', default=False, is_flag=True,
               help='reverse order while sorting')
-def cli(path, all_, long_, time_, changed, reverse, accessed):
+@click.option('--size', default=False, is_flag=True,
+              help='sort by file size')
+def cli(path, all_, long_, time_, changed, reverse, accessed, size):
     infos = listing_informs(path)
     funcs = chain(
         find_sort(time_=time_, changed=changed, long_=long_,
-                  accessed=accessed, reverse=reverse),
+                  accessed=accessed, reverse=reverse, size=size),
         find_filters(all_=all_),
         find_represent(long_=long_, changed=changed, accessed=accessed)
     )

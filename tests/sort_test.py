@@ -136,3 +136,29 @@ def test_sort_with_lt(f_sort_inform, k, result):
     d = apply_funcs(find_sort(**key), f_sort_inform)
     for result, expected in zip(d, result):
         assert expected == result.name
+
+
+def test_sort_by_size():
+    informs = []
+    for x in range(9, 0, -1):
+        inform = Inform(
+            name='',
+            mode=0o100777,
+            permission=0o777,
+            owner={
+                'uid': 0,
+                'gid': 0,
+                'uname': 'foo',
+                'gname': 'bar'
+            },
+            size=x,
+            is_dir=False,
+            changed_at=datetime.now(),
+            modified_at=datetime.now(),
+            accessed_at=datetime.now(),
+        )
+        informs.append(inform)
+    sort_func = find_sort(size=True)
+    sorted_informs = sort_func[0](informs)
+    for x in range(1, 10):
+        assert x == sorted_informs[x - 1].size

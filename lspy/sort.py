@@ -6,7 +6,7 @@ __all__ = 'find_sort',
 
 def find_sort(
         long_=False, time_=False, accessed=False, changed=False,
-        reverse=False):
+        reverse=False, size=False):
     """Find sort functions.
 
     :param boolean long_:
@@ -14,6 +14,7 @@ def find_sort(
     :param boolean accessed:
     :param boolean changed:
     :param boolean reverse:
+    :param boolean size:
     :return: a list contains lambda has sort function.
     :rtype: list
     """
@@ -25,6 +26,8 @@ def find_sort(
             key = 'changed_at'
     if time_ and not accessed and not changed:
         key = 'modified_at'
+    if size:
+        key = 'size'
     key_func = lambda inform: getattr(inform, key)
     funcs = [lambda informs: sorted(informs, key=key_func)]
     if reverse:
