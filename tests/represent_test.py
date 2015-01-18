@@ -5,10 +5,13 @@ from pytest import mark
 from lspy.dig import Inform
 from lspy.represent import only_names, long_repr, find_represent, size_represent
 
+ci_skip = mark.skipif(pytest.config.getvalue('ci'), reason='--ci set')
+
 def test_only_names(f_infos):
     assert ['a', 'foo'] == only_names(f_infos)
 
 
+@ci_skip
 def test_long_repr(f_infos):
     expect = [
         'drwxr-xr-x {uname} {gname} 102 1 15 15:38 a',
@@ -22,6 +25,7 @@ def test_long_repr(f_infos):
         assert expected == represent
 
 
+@ci_skip
 @mark.parametrize('represent_time', ('changed_at', 'accessed_at'))
 def test_with_time_long_repr(f_infos, represent_time):
     two_days_ago = getattr(f_infos[1], represent_time) - timedelta(days=2)
