@@ -1,5 +1,7 @@
 # lspy
 
+[![Circle CI](https://circleci.com/gh/admire93/lspy/tree/master.svg?style=svg)](https://circleci.com/gh/admire93/lspy/tree/master)
+
 implement unix `ls` command in python
 
 ## Usage
