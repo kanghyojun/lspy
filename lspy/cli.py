@@ -41,14 +41,17 @@ def apply_funcs(funcs, data):
               help='sort by file size')
 @click.option('--recursive', default=False, is_flag=True,
               help='list subdirectories recursively')
-def cli(
-        path, all_, long_, time_, changed, reverse,
-        accessed, size, recursive):
+@click.option('--human', default=False, is_flag=True,
+              help='with -l, print sizes in human readable format '
+                   '(e.g., 1K 234M 2G)')
+def cli(path, all_, long_, time_, changed, reverse, accessed, size, recursive,
+        human):
     funcs = list(chain(
         find_sort(time_=time_, changed=changed, long_=long_,
                   accessed=accessed, reverse=reverse, size=size),
         find_filters(all_=all_),
-        find_represent(long_=long_, changed=changed, accessed=accessed)
+        find_represent(long_=long_, changed=changed, accessed=accessed,
+                       human=human)
     ))
     if recursive:
         recursive_infos = recursive_listing_informs(path)

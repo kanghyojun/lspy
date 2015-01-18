@@ -3,7 +3,7 @@ from datetime import timedelta
 from pytest import mark
 
 from lspy.dig import Inform
-from lspy.represent import only_names, long_repr, find_represent
+from lspy.represent import only_names, long_repr, find_represent, size_represent
 
 def test_only_names(f_infos):
     assert ['a', 'foo'] == only_names(f_infos)
@@ -37,3 +37,13 @@ def test_with_time_long_repr(f_infos, represent_time):
     kwargs[represent_time[:-3]] = True
     result = find_represent(**kwargs)[0]([info])
     assert expected == result[0]
+
+
+def test_size_represent():
+    assert 512 == size_represent(512, False)
+    assert '512.0B' == size_represent(512, True)
+    assert '1.0K' == size_represent(1024, True)
+    assert '1.0M' == size_represent(1024 ** 2, True)
+    assert '1.0G' == size_represent(1024 ** 3, True)
+    assert '1.0P' == size_represent(1024 ** 4, True)
+    assert '1024.0P' == size_represent(1024 ** 5, True)
