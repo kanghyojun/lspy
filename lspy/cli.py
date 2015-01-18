@@ -27,12 +27,23 @@ def apply_funcs(funcs, data):
               help='List in long format.')
 @click.option('--time', 'time_', default=False, is_flag=True,
               help='sort by modification time.')
-def cli(path, all_, long_, time_):
+@click.option('--changed', default=False, is_flag=True,
+              help='with --long --time: sort by, and show, ctime'
+                   'with --long: show ctime and  sort  by  name'
+                   'otherwise: sort by ctime')
+@click.option('--accessed', default=False, is_flag=True,
+              help='with --long --time: sort by, and show, atime'
+                   'with --long: show atime and  sort  by  name'
+                   'otherwise: sort by atime')
+@click.option('--reverse', default=False, is_flag=True,
+              help='reverse order while sorting')
+def cli(path, all_, long_, time_, changed, reverse, accessed):
     infos = listing_informs(path)
     funcs = chain(
-        find_sort(time_=time_),
+        find_sort(time_=time_, changed=changed, long_=long_,
+                  accessed=accessed, reverse=reverse),
         find_filters(all_=all_),
-        find_represent(long_=long_)
+        find_represent(long_=long_, changed=changed, accessed=accessed)
     )
     for f in apply_funcs(funcs, infos):
         click.echo(f)
