@@ -2,7 +2,7 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 from datetime import datetime
 from grp import getgrgid
 from pathlib import Path
@@ -11,7 +11,12 @@ from pwd import getpwuid
 import os
 import stat
 
-__all__ = 'get_fileinfo', 'Inform',
+__all__ = (
+    'get_fileinfo',
+    'Inform',
+    'listing_informs',
+    'recursive_listing_informs',
+)
 
 #: ``namedtuple`` that contains information of file or directory
 Inform = namedtuple('namedtuple', ['permission', 'owner', 'size',
@@ -46,6 +51,28 @@ def get_fileinfo(filename):
         modified_at=datetime.fromtimestamp(status.st_mtime),
         accessed_at=datetime.fromtimestamp(status.st_mtime),
     )
+
+
+def recursive_listing_informs(path):
+    """Recursively listing a files and directory.
+
+    :param str path: path that want to listing.
+    :return: a dictionary that key is a root path and value is list of `Inform`
+    :rtype: :class:`OrderedDict`
+    """
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(
+            'No such file or directory: {}'.format(path))
+    result = OrderedDict()
+    for root, dirs, files in os.walk(str(path)):
+        result.setdefault(root, [])
+        root_path = Path(root)
+        for dir_ in dirs:
+            result[root].append(get_fileinfo(str(root_path / dir_)))
+        for file_ in files:
+            result[root].append(get_fileinfo(str(root_path / file_)))
+    return result
 
 
 def listing_informs(path):

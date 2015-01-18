@@ -5,7 +5,12 @@ import os
 
 import pytest
 
-from lspy.dig import get_fileinfo, Inform, listing_informs
+from lspy.dig import (
+    get_fileinfo,
+    Inform,
+    listing_informs,
+    recursive_listing_informs
+)
 
 def test_has_key_get_fileinfo(f_777_filename):
     keys = [
@@ -59,3 +64,16 @@ def test_listing_informs(f_tree_path):
         assert expected.modified_at == result.modified_at
         assert expected.accessed_at == result.accessed_at
         assert expected.changed_at == result.changed_at
+
+
+def test_recursive_listing(f_asset_path):
+    recursive_infos = recursive_listing_informs(f_asset_path)
+    expected = [
+        ('tests/assets', 3),
+        ('tests/assets/filter', 2),
+        ('tests/assets/tree', 2),
+        ('tests/assets/tree/a', 1)
+    ]
+    for path, count in expected:
+        assert path in recursive_infos
+        assert count == len(recursive_infos[path])

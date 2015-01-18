@@ -7,7 +7,7 @@ from itertools import chain
 
 import click
 
-from .dig import listing_informs
+from .dig import listing_informs, recursive_listing_informs
 from .represent import find_represent
 from .filter import find_filters
 from .sort import find_sort
@@ -39,13 +39,26 @@ def apply_funcs(funcs, data):
               help='reverse order while sorting')
 @click.option('--size', default=False, is_flag=True,
               help='sort by file size')
-def cli(path, all_, long_, time_, changed, reverse, accessed, size):
-    infos = listing_informs(path)
-    funcs = chain(
+@click.option('--recursive', default=False, is_flag=True,
+              help='list subdirectories recursively')
+def cli(
+        path, all_, long_, time_, changed, reverse,
+        accessed, size, recursive):
+    funcs = list(chain(
         find_sort(time_=time_, changed=changed, long_=long_,
                   accessed=accessed, reverse=reverse, size=size),
         find_filters(all_=all_),
         find_represent(long_=long_, changed=changed, accessed=accessed)
-    )
-    for f in apply_funcs(funcs, infos):
-        click.echo(f)
+    ))
+    if recursive:
+        recursive_infos = recursive_listing_informs(path)
+        for root, infos in recursive_infos.items():
+            if not all_ and root.startswith('./.'):
+                continue
+            print('\n{}'.format(root))
+            for f in apply_funcs(funcs, infos):
+                click.echo(f)
+    else:
+        infos = listing_informs(path)
+        for f in apply_funcs(funcs, infos):
+            click.echo(f)

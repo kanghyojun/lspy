@@ -22,3 +22,8 @@ def f_filter_path():
 @fixture
 def f_infos(f_tree_path):
     return listing_informs(f_tree_path)[2:]
+
+
+@fixture
+def f_asset_path():
+    return str(Path('./tests/assets'))
