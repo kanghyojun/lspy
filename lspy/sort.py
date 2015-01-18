@@ -9,12 +9,12 @@ def find_sort(
         reverse=False, size=False):
     """Find sort functions.
 
-    :param boolean long_:
-    :param boolean time_:
-    :param boolean accessed:
-    :param boolean changed:
-    :param boolean reverse:
-    :param boolean size:
+    :param boolean long_: ``--long`` option
+    :param boolean time_: ``--time`` option
+    :param boolean accessed: ``--accessed`` option
+    :param boolean changed: ``--changed`` option
+    :param boolean reverse: ``--reverse`` option
+    :param boolean size: ``--size`` option
     :return: a list contains lambda has sort function.
     :rtype: list
     """

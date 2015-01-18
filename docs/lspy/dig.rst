@@ -1,0 +1,3 @@
+
+.. automodule:: lspy.dig
+   :members:

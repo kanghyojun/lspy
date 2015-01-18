@@ -8,6 +8,15 @@ __all__ = 'only_names', 'long_repr', 'find_represent', 'size_represent',
 
 
 def find_represent(long_=False, changed=False, accessed=False, human=False):
+    """Find appropriate represent function.
+
+    :param boolean long_: ``--long`` option
+    :param boolean changed: ``--changed`` option
+    :param boolean accessed: ``--accessed`` option
+    :param boolean human: ``--human`` option
+    :return: a list contains represent function
+    :rtype: list
+    """
     funcs = []
     if long_:
         if changed:

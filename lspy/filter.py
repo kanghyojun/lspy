@@ -5,6 +5,12 @@
 __all__ = 'hide_dot', 'find_filters',
 
 def find_filters(all_=False):
+    """Find appropriate filters.
+
+    :param boolean all_: ``--all`` option
+    :return: a list contains filter function
+    :rtype: list
+    """
     funcs = []
     if not all_:
         funcs.append(hide_dot)
