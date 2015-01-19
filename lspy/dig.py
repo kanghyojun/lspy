@@ -19,9 +19,9 @@ __all__ = (
 )
 
 #: ``namedtuple`` that contains information of file or directory
-Inform = namedtuple('namedtuple', ['permission', 'owner', 'size',
-                                   'is_dir', 'modified_at', 'accessed_at',
-                                   'changed_at', 'mode', 'name'])
+Inform = namedtuple('Inform', ['permission', 'owner', 'size',
+                               'is_dir', 'modified_at', 'accessed_at',
+                               'changed_at', 'mode', 'name'])
 
 def get_fileinfo(filename):
     """Return information ( permission, owner, ... ) of file or directory.
